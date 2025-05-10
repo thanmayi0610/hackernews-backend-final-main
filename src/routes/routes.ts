@@ -8,16 +8,28 @@ import { authRoute } from "./middlewares/session-middleware";
 import { logger } from "hono/logger";
 import { webClientUrl } from "../environment";
 export const allroutes = new Hono();
+// allroutes.use(
+//   "*",
+//   cors({
+//     origin: webClientUrl, 
+//     allowHeaders: ["Content-Type", "Authorization"],
+//     allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+//     exposeHeaders: ["Content-Length"],
+//     maxAge: 600,
+//     credentials: true,
+//   })
+// );
+
 allroutes.use(
   "*",
   cors({
-    origin: webClientUrl, 
-    allowHeaders: ["Content-Type", "Authorization"],
-    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    exposeHeaders: ["Content-Length"],
+    origin: webClientUrl,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    exposedHeaders: ["Content-Length"],
     maxAge: 600,
     credentials: true,
-  })
+  } as any)
 );
 
 // Global logger
